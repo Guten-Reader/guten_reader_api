@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_223610) do
 
   create_table "user_books", force: :cascade do |t|
     t.bigint "user_id"
+    t.integer "current_page", default: 0
     t.bigint "book_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
