@@ -1,24 +1,22 @@
-# README
+### Base Url
+`https://guten-server.herokuapp.com/`
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Endpoints
 
-Things you may want to cover:
+#### POST user_books
 
-* Ruby version
+`POST /users/:id/books`
 
-* System dependencies
+**Description:** A user clicks button from search page
 
-* Configuration
+#### GET user_books (all books)
+`GET /users/:id/books/`
 
-* Database creation
+#### UPDATE user_books (by id, guten_id)
+`PATCH /users/:id/books/:guten_id`
 
-* Database initialization
+#### DELETE user_books (by id, guten_id)
+`DELETE /users/:id/books/:guten_id`
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### GET user_book (by id, guten_id)
+`GET /users/:id/books/:guten_id`
