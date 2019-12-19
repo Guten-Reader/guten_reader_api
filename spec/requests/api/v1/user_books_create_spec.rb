@@ -32,7 +32,7 @@ describe "post user books" do
   end
 
   it "cannot post new book without proper body" do
-  # skip
+
     user = create(:user)
 
     request_body = {
@@ -40,12 +40,33 @@ describe "post user books" do
                       "author": "Through the Looking-Glass",
                     }
 
-    post "/api/v1/users/#{@user.id}/books", as: :json, params: request_body
+    post "/api/v1/users/#{user.id}/books", as: :json, params: request_body
+
 
     expect(response).to have_http_status(400)
 
     expected = {error: "Invalid request"}
 
     expect(response.body).to eq(expected.to_json)
+  end
+
+  it "cannot post user book if book already checked out" do
+
+    user = create(:user)
+
+    request_body = {
+                      "guten_id": "12",
+                      "title": "Through the Looking-Glass",
+                      "author": "Carroll, Lewis",
+                    }
+
+    post "/api/v1/users/#{user.id}/books", as: :json, params: request_body
+    expect(response).to have_http_status(201)
+
+    post "/api/v1/users/#{user.id}/books", as: :json, params: request_body
+    expect(response).to have_http_status(409)
+
+    expected_response = { message: "User has already checked out book"}
+    expect(response.body).to eq(expected_response.to_json)
   end
 end
