@@ -1,10 +1,15 @@
 class Api::V1::Users::BooksController < ApplicationController
   before_action :find_user_book, only: [:destroy, :update]
 
+  def show
+    data = JestamouseService.new.get_book_text(params[:id])
+    book = ParserFacade.new.parse_data(data)
+    render json: {message: book }
+  end
+
   def create
     facade = UserBooksFacade.new(params)
     book = facade.can_create_or_add_book?
-
     unless book.id?
       return render json: { error: "Invalid request"},  status: 400
     end
@@ -16,7 +21,7 @@ class Api::V1::Users::BooksController < ApplicationController
       render json: { message: "User has already checked out book"}, status: 409
     end
   end
-  
+
   def index
     user = User.find_by_id(params[:user_id])
     if user
@@ -54,6 +59,8 @@ class Api::V1::Users::BooksController < ApplicationController
       }, status: 404
     end
   end
+
+
 
   private
 
