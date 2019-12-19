@@ -1,4 +1,6 @@
 class Api::V1::Users::BooksController < ApplicationController
+  before_action :find_user_book, only: [:destroy, :update]
+
   def index
     user = User.find_by_id(params[:user_id])
     if user
@@ -9,30 +11,31 @@ class Api::V1::Users::BooksController < ApplicationController
   end
 
   def destroy
-    user_id = params[:user_id]
-    book_id = params[:id]
-
-    record = UserBook.find_by(user_id: user_id, book_id: book_id)
-
-    if record
-      record.destroy
+    if @user_book
+      @user_book.destroy
     else
-      render json: { error: "Could not find record with user_id: #{user_id}, book_id: #{book_id}" }, status: 404
+      render json: {
+        error: "Could not find record with " \
+               "user_id: #{params[:user_id]}, " \
+               "book_id: #{params[:id]}"
+      }, status: 404
     end
   end
 
   def update
-    record = find_user_book(user_book_params)
-    if record
-      record.update(current_page: params[:current_page])
-      render json: record
+    if @user_book
+      @user_book.update(current_page: params[:current_page])
+      render json: @user_book
     end
   end
 
   private
 
-  def find_user_book(params)
-    UserBook.find_by(user_id: params[:user_id], book_id: params[:id])
+  def find_user_book
+    params = user_book_params
+    @user_book ||= UserBook.find_by(
+      user_id: params[:user_id],
+      book_id: params[:id])
   end
 
   def user_book_params
