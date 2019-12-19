@@ -17,4 +17,13 @@ describe 'DELETE /api/v1/users/:user_id/books/:book_id' do
     expect(user.books.length).to eq(1)
     expect(user.books.first).to eq(book2)
   end
+
+  it 'returns 404 if record not found' do
+    delete "/api/v1/users/1/books/1"
+
+    message = JSON.parse(response.body)
+
+    expect(response.status).to eq(404)
+    expect(message).to eq({ 'error'=> 'Could not find record with user_id: 1, book_id: 1' })
+  end
 end
