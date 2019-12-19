@@ -13,7 +13,7 @@ class Api::V1::Users::BooksController < ApplicationController
     book_id = params[:id]
 
     record = UserBook.find_by(user_id: user_id, book_id: book_id)
-    # binding.pry
+
     if record
       record.destroy
     else

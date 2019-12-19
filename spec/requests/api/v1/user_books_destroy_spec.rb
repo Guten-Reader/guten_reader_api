@@ -9,9 +9,12 @@ describe 'DELETE /api/v1/users/:user_id/books/:book_id' do
     expect(user.books.length).to eq(2)
 
     delete "/api/v1/users/#{user.id}/books/#{book1.id}"
-    
+
     expect(response.status).to eq(204)
-    # expect(user.books.length).to eq(1)
+    expect(response.body).to eq('')
+
+    user.reload
+    expect(user.books.length).to eq(1)
     expect(user.books.first).to eq(book2)
   end
 end
