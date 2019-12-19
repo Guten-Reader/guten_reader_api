@@ -2,6 +2,8 @@ class Api::V1::Users::BooksController < ApplicationController
   def create
     book = Book.where(book_params).first_or_create
     user_book = UserBook.where(book_id: book.id, user_id: params['user_id']).first_or_create
+
+    # logic to render 404 status if user_book not found OR if user already has added book to checkedout
     if book && user_book
       render json: { message: "#{book.title} has been added to user: #{user_book.user_id}"}, status: 201
     end
