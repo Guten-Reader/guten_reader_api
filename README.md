@@ -50,11 +50,32 @@ status: 404
 }
 ```
 
-#### UPDATE user_books (by id, guten_id)
-`PATCH /users/:id/books/:guten_id`
+#### UPDATE user_books (by user_id, book_id)
+`PATCH /users/:user_id/books/:book_id`
 
-#### DELETE user_books (by id, guten_id)
-`DELETE /users/:id/books/:guten_id`
+#### DELETE user_books (by user_id, book_id)
+`DELETE /users/:user_id/books/:book_id`
 
-#### GET user_book (by id, guten_id)
-`GET /users/:id/books/:guten_id`
+**Description:** Send a DELETE request to the endpoint `api/v1/users/:user_id/books/:book_id` to remove a book from a users library. If the DELETE request is successful, you will see a No Content response, 204 status code. If the DELETE request is unsuccessful, I will receive a 404 status code. 
+
+**Request**
+``` 
+DELETE api/v1/users/:user_id/books/:book_id
+```
+**Successful Response**
+```
+status: 204
+```
+
+**Unsuccessful Response**
+
+```
+status: 404
+
+{ 
+   "error": "Could not find record with user_id: {user_id}, book_id: {book_id} "
+}
+```
+
+#### GET user_book (by user_id, book_id)
+`GET /users/:user_id/books/:book_id`
