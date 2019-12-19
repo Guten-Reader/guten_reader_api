@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'DELETE /api/v1/users/:user_id/books/:book_id' do
-  it 'removes a record from the user_books table' do 
+  it 'removes a record from the user_books table' do
     user, book1, book2 = create(:user), create(:book), create(:book)
     user_book1 = create(:user_book, user: user, book: book1)
     user_book2 = create(:user_book, user: user, book: book2)
@@ -22,6 +22,7 @@ describe 'DELETE /api/v1/users/:user_id/books/:book_id' do
     delete "/api/v1/users/1/books/1"
 
     message = JSON.parse(response.body)
+
 
     expect(response.status).to eq(404)
     expect(message).to eq({ 'error'=> 'Could not find record with user_id: 1, book_id: 1' })
