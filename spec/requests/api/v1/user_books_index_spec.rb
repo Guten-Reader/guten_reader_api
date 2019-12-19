@@ -6,7 +6,7 @@ describe 'GET /api/v1/users/:id/books' do
 
     get "/api/v1/users/#{user.id}/books"
 
-    expect(response).to be_successful
+    expect(response.status).to eq(200)
 
     data = JSON.parse(response.body, symbolize_names: true)
 
@@ -20,7 +20,7 @@ describe 'GET /api/v1/users/:id/books' do
 
     get "/api/v1/users/#{user.id}/books"
 
-    expect(response).to be_successful
+    expect(response.status).to eq(200)
 
     data = JSON.parse(response.body, symbolize_names: true)
 
@@ -42,5 +42,15 @@ describe 'GET /api/v1/users/:id/books' do
     }
 
     expect(data).to eq(expected)
+  end
+
+  it 'returns 404 if user not found' do
+    get "/api/v1/users/1/books"
+    
+    expect(response.status).to eq(404)
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(data).to eq({ error: 'User could not be found.' })
   end
 end
