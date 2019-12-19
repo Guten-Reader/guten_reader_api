@@ -1,7 +1,6 @@
 class Api::V1::Users::BooksController < ApplicationController
   before_action :find_user_book, only: [:destroy, :update]
 
-
   def create
     facade = UserBooksFacade.new(params)
     book = facade.can_create_or_add_book?
@@ -41,12 +40,18 @@ class Api::V1::Users::BooksController < ApplicationController
 
   def update
     unless params[:current_page]
-      render json: { error: "Missing query param current_page" }, status: 400
+      return render json: { error: "Missing query param current_page" }, status: 400
     end
 
     if @user_book
       @user_book.update(current_page: params[:current_page])
       render json: @user_book
+    else
+      render json: {
+        error: "Could not find record with " \
+               "user_id: #{params[:user_id]}, " \
+               "book_id: #{params[:id]}"
+      }, status: 404
     end
   end
 
