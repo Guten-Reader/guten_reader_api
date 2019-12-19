@@ -1,5 +1,7 @@
 class Api::V1::Users::BooksController < ApplicationController
   def create
+
+    # need to move methods into models
     book = Book.where(book_params).first_or_create
     user_book = UserBook.where(book_id: book.id, user_id: params['user_id']).first_or_create
 
