@@ -23,6 +23,10 @@ class Api::V1::Users::BooksController < ApplicationController
   end
 
   def update
+    unless params[:current_page]
+      render json: { error: "Missing query param current_page" }, status: 400
+    end
+
     if @user_book
       @user_book.update(current_page: params[:current_page])
       render json: @user_book

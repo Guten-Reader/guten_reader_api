@@ -18,7 +18,7 @@ describe 'PATCH /api/v1/users/:user_id/books/:book_id' do
   end
 
   it 'returns 400 if missing query param current_page' do 
-    patch "/api/v1/users/#{user.id}/books/#{book.id}"
+    patch "/api/v1/users/1/books/1"
 
     data = JSON.parse(response.body, symbolize_names: true)
 
