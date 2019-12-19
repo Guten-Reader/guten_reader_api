@@ -6,9 +6,9 @@ describe "post user books" do
     user = create(:user)
 
     request_body = {
-                      "guten_id": 12,
-                      "title": "Carroll, Lewis",
-                      "author": "Through the Looking-Glass",
+                      "guten_id": "12",
+                      "title": "Through the Looking-Glass",
+                      "author": "Carroll, Lewis",
                     }
 
     post "/api/v1/users/#{user.id}/books", as: :json, params: request_body
@@ -18,21 +18,21 @@ describe "post user books" do
 
     expect(response).to have_http_status(201)
 
-    expected_response = {"api_key": user.token}
+    expected_response = { message: "#{new_book.title} has been added to user: #{user_book.user_id}"}
 
     expect(response.body).to eq(expected_response.to_json)
 
     expect(new_book.guten_id).to eq(12)
-    expect(new_book.title).to eq("Carroll, Lewis")
-    expect(new_book.author).to eq("Through the Looking-Glass")
-    expect(new_book.img_url).to eq(null)
+    expect(new_book.author).to eq("Carroll, Lewis")
+    expect(new_book.title).to eq("Through the Looking-Glass")
+    expect(new_book.img_url).to eq(nil)
 
     expect(user_book.user_id).to eq(user.id)
     expect(user_book.book_id).to eq(new_book.id)
   end
 
   it "cannot post new book without proper body" do
-  skip
+  # skip
     user = create(:user)
 
     request_body = {
