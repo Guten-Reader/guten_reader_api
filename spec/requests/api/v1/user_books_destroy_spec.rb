@@ -26,4 +26,22 @@ describe 'DELETE /api/v1/users/:user_id/books/:book_id' do
     expect(response.status).to eq(404)
     expect(message).to eq({ 'error'=> 'Could not find record with user_id: 1, book_id: 1' })
   end
+
+  describe 'edge case: users have same book' do
+    it 'only deletes the book for a specific user' do
+      user1, user2 = create(:user), create(:user)
+      book1, book2 = create(:book), create(:book)
+      create(:user_book, user: user1, book: book1)
+      create(:user_book, user: user1, book: book2)
+      create(:user_book, user: user2, book: book1)
+      create(:user_book, user: user2, book: book2)
+
+      delete "/api/v1/users/#{user1.id}/books/#{book1.id}"
+
+      user1.reload
+
+      expect(user1.books.length).to eq(1)
+      expect(user2.books.length).to eq(2)
+    end
+  end
 end
