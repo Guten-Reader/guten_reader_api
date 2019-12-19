@@ -1,4 +1,5 @@
 class Api::V1::Users::BooksController < ApplicationController
+  before_action :find_user_book, only: [:destroy, :update]
 
   def create
     facade = UserBooksFacade.new(params)
@@ -26,15 +27,44 @@ class Api::V1::Users::BooksController < ApplicationController
   end
 
   def destroy
-    user_id = params[:user_id]
-    book_id = params[:id]
-
-    record = UserBook.find_by(user_id: user_id, book_id: book_id)
-
-    if record
-      record.destroy
+    if @user_book
+      @user_book.destroy
     else
-      render json: { error: "Could not find record with user_id: #{user_id}, book_id: #{book_id}" }, status: 404
+      render json: {
+        error: "Could not find record with " \
+               "user_id: #{params[:user_id]}, " \
+               "book_id: #{params[:id]}"
+      }, status: 404
     end
+  end
+
+  def update
+    unless params[:current_page]
+      return render json: { error: "Missing query param current_page" }, status: 400
+    end
+
+    if @user_book
+      @user_book.update(current_page: params[:current_page])
+      render json: @user_book
+    else
+      render json: {
+        error: "Could not find record with " \
+               "user_id: #{params[:user_id]}, " \
+               "book_id: #{params[:id]}"
+      }, status: 404
+    end
+  end
+
+  private
+
+  def find_user_book
+    params = user_book_params
+    @user_book ||= UserBook.find_by(
+      user_id: params[:user_id],
+      book_id: params[:id])
+  end
+
+  def user_book_params
+    params.permit(:user_id, :id)
   end
 end
