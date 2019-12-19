@@ -8,4 +8,8 @@ class User < ApplicationRecord
   validates :password, confirmation: true
 
   enum role: [:user, :admin]
+  
+  def all_books
+    books.select(:id, :guten_id, :author, :title)
+  end
 end

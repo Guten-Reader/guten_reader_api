@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: guten_reader_api_test
+  username: postgres
