@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/downloads/:id', to: 'downloads#index'
-
       resources :users, only: [] do
         scope module: 'users' do
           resources :books, except: [:new, :edit]

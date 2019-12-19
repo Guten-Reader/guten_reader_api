@@ -11,5 +11,5 @@ rvm:
     - 2.6.3
 
 script:
-    - bundle exec rails db:reset db:setup db:migrate RAILS_ENV=test
+    - bundle exec rails db:create db:migrate RAILS_ENV=test
     - bundle exec rspec
