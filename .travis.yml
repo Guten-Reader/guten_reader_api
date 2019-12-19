@@ -12,4 +12,5 @@ rvm:
 
 script:
     - bundle exec rails db:create db:migrate RAILS_ENV=test
+    - bundle exec rails db:create db:migrate RAILS_ENV=production
     - bundle exec rspec
