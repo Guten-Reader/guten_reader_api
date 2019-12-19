@@ -16,4 +16,13 @@ describe 'PATCH /api/v1/users/:user_id/books/:book_id' do
     expect(data[:book_id]).to eq(user_book.book_id)
     expect(data[:current_page]).to eq(11)
   end
+
+  it 'returns 400 if missing query param current_page' do 
+    patch "/api/v1/users/#{user.id}/books/#{book.id}"
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(response.status).to eq(400)
+    expect(data).to eq({ error: "Missing query param current_page" })
+  end
 end
