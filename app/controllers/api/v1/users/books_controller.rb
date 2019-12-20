@@ -6,8 +6,8 @@ class Api::V1::Users::BooksController < ApplicationController
     guten_id = book.guten_id
     response = Faraday.get("https://gutenberg.justamouse.com/texts/#{guten_id}/body")
     text = JSON.parse(response.body)['body']
-    binding.pry
-
+    clean = text.gsub(/(\S)\r\n(\S){1}/, '\1 \2')
+    render json: { text: clean }
   end
 
   def create
