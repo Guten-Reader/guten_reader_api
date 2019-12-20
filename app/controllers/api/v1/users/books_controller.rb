@@ -1,6 +1,15 @@
 class Api::V1::Users::BooksController < ApplicationController
   before_action :find_user_book, only: [:destroy, :update]
 
+  def show
+    book = Book.find_by_id(params[:id])
+    guten_id = book.guten_id
+    response = Faraday.get("https://gutenberg.justamouse.com/texts/#{guten_id}/body")
+    text = JSON.parse(response.body)['body']
+    clean = text.gsub(/(\S)\r\n(\S){1}/, '\1 \2')
+    render json: { text: clean }
+  end
+
   def create
     facade = UserBooksFacade.new(params)
     book = facade.can_create_or_add_book?
