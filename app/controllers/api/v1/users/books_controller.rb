@@ -2,6 +2,13 @@ class Api::V1::Users::BooksController < ApplicationController
   before_action :find_user_book, only: [:destroy, :update, :show]
 
   def show
+    if @user_book.nil?
+      return render json: {
+        error: "Could not find record with " \
+               "user_id: #{params[:user_id]}, " \
+               "book_id: #{params[:id]}"
+      }, status: 404
+    end
     guten_id = @user_book.book.guten_id
     full_text = JestamouseService.new.get_book_text(guten_id)
     paginated_book = ParserFacade.new.get_paginated_book(@user_book, full_text)
