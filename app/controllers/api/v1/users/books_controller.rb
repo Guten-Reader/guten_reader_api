@@ -6,8 +6,7 @@ class Api::V1::Users::BooksController < ApplicationController
       return cannot_find_user_book(params)
     end
     guten_id = @user_book.book.guten_id
-    full_text = JestamouseService.new.get_book_text(guten_id)
-    paginated_book = ParserFacade.new.get_paginated_book(@user_book, full_text)
+    paginated_book = PaginateFacade.new.get_paginated_book(@user_book, guten_id)
     render json: {data: paginated_book }
   end
 
@@ -55,7 +54,7 @@ class Api::V1::Users::BooksController < ApplicationController
     end
   end
 
-  ## move to application controller? 
+  ## move to application controller?
   def cannot_find_user_book(params)
     render json: {
       error: "Could not find record with " \
