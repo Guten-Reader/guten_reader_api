@@ -3,11 +3,7 @@ class Api::V1::Users::BooksController < ApplicationController
 
   def show
     if @user_book.nil?
-      return render json: {
-        error: "Could not find record with " \
-               "user_id: #{params[:user_id]}, " \
-               "book_id: #{params[:id]}"
-      }, status: 404
+      return cannot_find_user_book(params)
     end
     guten_id = @user_book.book.guten_id
     full_text = JestamouseService.new.get_book_text(guten_id)
@@ -23,7 +19,7 @@ class Api::V1::Users::BooksController < ApplicationController
     end
     user_book = facade.checkout_book(book)
     if user_book
-        render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
+      render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
     else
       render json: { message: "User has already checked out book"}, status: 409
     end
@@ -42,11 +38,7 @@ class Api::V1::Users::BooksController < ApplicationController
     if @user_book
       @user_book.destroy
     else
-      render json: {
-        error: "Could not find record with " \
-               "user_id: #{params[:user_id]}, " \
-               "book_id: #{params[:id]}"
-      }, status: 404
+      return cannot_find_user_book(params)
     end
   end
 
@@ -59,18 +51,20 @@ class Api::V1::Users::BooksController < ApplicationController
       @user_book.update(current_page: params[:current_page])
       render json: @user_book
     else
-      render json: {
-        error: "Could not find record with " \
-               "user_id: #{params[:user_id]}, " \
-               "book_id: #{params[:id]}"
-      }, status: 404
+      return cannot_find_user_book(params)
     end
   end
 
-
+  ## move to application controller? 
+  def cannot_find_user_book(params)
+    render json: {
+      error: "Could not find record with " \
+             "user_id: #{params[:user_id]}, " \
+             "book_id: #{params[:id]}"
+    }, status: 404
+  end
 
   private
-
   def find_user_book
     params = user_book_params
     @user_book ||= UserBook.find_by(
