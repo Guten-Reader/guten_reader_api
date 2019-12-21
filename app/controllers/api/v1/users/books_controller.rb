@@ -4,8 +4,9 @@ class Api::V1::Users::BooksController < ApplicationController
   def show
     guten_id = @user_book.book.guten_id
     full_text = JestamouseService.new.get_book_text(guten_id)
-    parsed_book = ParserFacade.new.parse_data(full_text)
-    render json: {book: parsed_book }
+    parsed_book = ParserFacade.new.get_parsed_book(@user_book, full_text)
+    # parsed_book = ParserFacade.new.parse_data(full_text)
+    render json: {data: parsed_book }
   end
 
   def create
