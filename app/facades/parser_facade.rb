@@ -15,9 +15,9 @@ class ParserFacade
     clean_data = full_text.gsub(/(\S)\r\n(\S){1}/, '\1 \2')
     paginated_book = []
     until clean_data.empty?
-       text_set = clean_data.truncate(1000, separator: /\s/, omission:'')
-       paginated_book << text_set
-       clean_data.sub!(text_set, '')
+      text_set = clean_data.truncate(1000, separator: /\s/, omission:'')
+      paginated_book << text_set
+      clean_data.sub!(text_set, '')
     end
     return paginated_book
   end
