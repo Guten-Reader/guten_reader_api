@@ -1,10 +1,11 @@
 class Api::V1::Users::BooksController < ApplicationController
-  before_action :find_user_book, only: [:destroy, :update]
+  before_action :find_user_book, only: [:destroy, :update, :show]
 
   def show
-    data = JestamouseService.new.get_book_text(params[:id])
-    book = ParserFacade.new.parse_data(data)
-    render json: {message: book }
+    guten_id = @user_book.book.guten_id
+    full_text = JestamouseService.new.get_book_text(guten_id)
+    parsed_book = ParserFacade.new.parse_data(full_text)
+    render json: {book: parsed_book }
   end
 
   def create
