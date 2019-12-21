@@ -4,9 +4,8 @@ class Api::V1::Users::BooksController < ApplicationController
   def show
     guten_id = @user_book.book.guten_id
     full_text = JestamouseService.new.get_book_text(guten_id)
-    parsed_book = ParserFacade.new.get_parsed_book(@user_book, full_text)
-    # parsed_book = ParserFacade.new.parse_data(full_text)
-    render json: {data: parsed_book }
+    paginated_book = ParserFacade.new.get_paginated_book(@user_book, full_text)
+    render json: {data: paginated_book }
   end
 
   def create
@@ -15,7 +14,6 @@ class Api::V1::Users::BooksController < ApplicationController
     unless book.id?
       return render json: { error: "Invalid request"},  status: 400
     end
-
     user_book = facade.checkout_book(book)
     if user_book
         render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
