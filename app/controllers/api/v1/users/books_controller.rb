@@ -5,7 +5,7 @@ class Api::V1::Users::BooksController < ApplicationController
     return cannot_find_user_book(params) unless @user_book
 
     paginator = PaginateFacade.new(@user_book)
-    render json: {data: paginator.get_paginated_book }
+    render json: {data: paginator.get_paginated_book }, status: 200
   end
 
   def create
