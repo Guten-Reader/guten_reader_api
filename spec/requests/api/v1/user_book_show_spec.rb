@@ -29,7 +29,7 @@ describe 'GET /api/v1/users/:id/books/:id' do
     expect(data[:data][:book].last).to eq(last_page_text)
 
     data[:data][:book].each do |page|
-      expect(page.length).to be < (1100)
+      expect(page.length).to be < (1025)
     end
   end
 
