@@ -1,7 +1,7 @@
-### Base Url
+## Base Url
 `https://guten-server.herokuapp.com/`
 
-### Endpoints
+## Endpoints
 
 ### GET single user_books
 
@@ -48,7 +48,7 @@ status: 404
 ```
 
 
-#### POST user_books
+### POST user_books
 
 `POST /users/:id/books`
 
@@ -86,7 +86,7 @@ status: 400
 }
 ```
 
-#### GET user_books (all books)
+### GET user_books (all books)
 
 `GET /users/:id/books/`
 
@@ -127,7 +127,7 @@ status: 404
 }
 ```
 
-#### UPDATE user_books (by user_id, book_id)
+### UPDATE user_books (by user_id, book_id)
 `PATCH /users/:user_id/books/:book_id`
 **Description:** You make a PATCH request to the endpoint ``api/v1/users/:user_id/books/:book_id?current_page=[CURRENT_PAGE_NUMBER]``. You must include the current page in the query params of the URI with they key 'current_page'. If the PATCH request is successful, you will see a JSON response with the updated current_page and receive a 200 status code. If the PATCH does not have query param current_page, you will receive a 400 status code.  If the user_book is not found, you will receive a 404 status code.
 
@@ -167,7 +167,7 @@ status: 404
 }
 ```
 
-#### DELETE user_books (by user_id, book_id)
+### DELETE user_books (by user_id, book_id)
 `DELETE /users/:user_id/books/:book_id`
 
 **Description:** Send a DELETE request to the endpoint `api/v1/users/:user_id/books/:book_id` to remove a book from a users library. If the DELETE request is successful, you will see a No Content response, 204 status code. If the DELETE request is unsuccessful, I will receive a 404 status code.
@@ -191,5 +191,5 @@ status: 404
 }
 ```
 
-#### GET user_book (by user_id, book_id)
+### GET user_book (by user_id, book_id)
 `GET /users/:user_id/books/:book_id`
