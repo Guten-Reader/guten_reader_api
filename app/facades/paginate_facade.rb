@@ -1,5 +1,3 @@
-require 'epub/parser'
-
 class PaginateFacade
 
   def get_gutenberg_book(guten_id)
