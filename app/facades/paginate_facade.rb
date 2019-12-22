@@ -15,13 +15,13 @@ class PaginateFacade
       paginated_book.push(text_set.lstrip)
       clean_text.sub!(text_set, '')
     end
-    return paginated_book
+    paginated_book
   end
 
   def paginated_gutenberg(guten_id)
     raw_text = get_gutenberg_book(guten_id)
     clean_text = remove_extra_returns(raw_text)
-    return paginate_text(clean_text)
+    paginate_text(clean_text)
   end
 
   def get_paginated_book(user_book, guten_id)
