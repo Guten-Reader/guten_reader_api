@@ -1,5 +1,12 @@
 class Api::V1::Users::BooksController < ApplicationController
-  before_action :find_user_book, only: [:destroy, :update]
+  before_action :find_user_book, only: [:destroy, :update, :show]
+
+  def show
+    return cannot_find_user_book(params) unless @user_book
+
+    paginator = PaginateFacade.new(@user_book)
+    render json: {data: paginator.get_paginated_book }
+  end
 
   # def show
   #   book = Book.find_by_id(params[:id])
@@ -14,13 +21,11 @@ class Api::V1::Users::BooksController < ApplicationController
     facade = UserBooksFacade.new(params)
     book = facade.can_create_or_add_book?
 
-    unless book.id?
-      return render json: { error: "Invalid request"},  status: 400
-    end
+    return render json: { error: "Invalid request"}, status: 400 unless book.id?
 
     user_book = facade.checkout_book(book)
     if user_book
-        render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
+      render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
     else
       render json: { message: "User has already checked out book"}, status: 409
     end
@@ -39,11 +44,7 @@ class Api::V1::Users::BooksController < ApplicationController
     if @user_book
       @user_book.destroy
     else
-      render json: {
-        error: "Could not find record with " \
-               "user_id: #{params[:user_id]}, " \
-               "book_id: #{params[:id]}"
-      }, status: 404
+      return cannot_find_user_book(params)
     end
   end
 
@@ -56,15 +57,18 @@ class Api::V1::Users::BooksController < ApplicationController
       @user_book.update(current_page: params[:current_page])
       render json: @user_book
     else
-      render json: {
-        error: "Could not find record with " \
-               "user_id: #{params[:user_id]}, " \
-               "book_id: #{params[:id]}"
-      }, status: 404
+      return cannot_find_user_book(params)
     end
   end
 
-  private
+ private
+  def cannot_find_user_book(params)
+    render json: {
+      error: "Could not find record with " \
+             "user_id: #{params[:user_id]}, " \
+             "book_id: #{params[:id]}"
+    }, status: 404
+  end
 
   def find_user_book
     params = user_book_params
