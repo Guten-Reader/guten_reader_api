@@ -54,7 +54,7 @@ class Api::V1::Users::BooksController < ApplicationController
     end
   end
 
-  ## move to application controller?
+ private
   def cannot_find_user_book(params)
     render json: {
       error: "Could not find record with " \
@@ -63,7 +63,6 @@ class Api::V1::Users::BooksController < ApplicationController
     }, status: 404
   end
 
-  private
   def find_user_book
     params = user_book_params
     @user_book ||= UserBook.find_by(
