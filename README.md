@@ -40,7 +40,7 @@ status: 200
 
 **Unsuccessful Response**
 ```
-status: 400
+status: 404
 
 {
     "error": "Could not find record with user_id: user_id, book_id: book_id"
