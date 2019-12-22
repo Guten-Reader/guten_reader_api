@@ -11,8 +11,8 @@ class PaginateFacade
   def paginate_text(clean_text)
     paginated_book = []
     until clean_text.empty?
-      text_set = clean_text.truncate(1000, separator: /\s/, omission:'')
-      paginated_book.push(text_set)
+      text_set = clean_text.truncate(600, separator: /\s/, omission:'')
+      paginated_book.push(text_set.lstrip)
       clean_text.sub!(text_set, '')
     end
     return paginated_book
