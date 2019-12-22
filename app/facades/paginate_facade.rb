@@ -19,8 +19,8 @@ class PaginateFacade
   end
 
   def paginated_gutenberg(guten_id)
-    raw_text ||= get_gutenberg_book(guten_id)
-    clean_text ||= remove_extra_returns(raw_text)
+    raw_text = get_gutenberg_book(guten_id)
+    clean_text = remove_extra_returns(raw_text)
     return paginate_text(clean_text)
   end
 
