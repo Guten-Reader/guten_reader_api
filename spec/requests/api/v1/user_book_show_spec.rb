@@ -28,7 +28,6 @@ describe 'GET /api/v1/users/:id/books/:id' do
     expect(data[:data][:book][0]).to eq(first_page_text)
     expect(data[:data][:book].last).to eq(last_page_text)
 
-    #test that each page has no more than 1100 characters
     data[:data][:book].each do |page|
       expect(page.length).to be < (1100)
     end
