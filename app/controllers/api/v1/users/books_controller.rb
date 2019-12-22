@@ -2,9 +2,8 @@ class Api::V1::Users::BooksController < ApplicationController
   before_action :find_user_book, only: [:destroy, :update, :show]
 
   def show
-    if @user_book.nil?
-      return cannot_find_user_book(params)
-    end
+    return cannot_find_user_book(params) unless @user_book
+
     guten_id = @user_book.book.guten_id
     paginated_book = PaginateFacade.new.get_paginated_book(@user_book, guten_id)
     render json: {data: paginated_book }
@@ -13,9 +12,9 @@ class Api::V1::Users::BooksController < ApplicationController
   def create
     facade = UserBooksFacade.new(params)
     book = facade.can_create_or_add_book?
-    unless book.id?
-      return render json: { error: "Invalid request"},  status: 400
-    end
+
+    return render json: { error: "Invalid request"}, status: 400 unless book.id?
+
     user_book = facade.checkout_book(book)
     if user_book
       render json: { message: "#{user_book.book.title} has been added to user: #{user_book.user_id}"}, status: 201
