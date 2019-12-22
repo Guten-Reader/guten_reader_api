@@ -4,7 +4,6 @@ class UserBooksFacade
     @author = params['author']
     @user_id = params['user_id']
     @guten_id = params['guten_id']
-
   end
 
   def can_create_or_add_book?
