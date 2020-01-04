@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe 'GET /api/v1/users/:id/books/:id' do
   it 'returns paginated gutenberg book' do
+    body = File.open('./spec/fixtures/alice.json')
+    stub_request(:get, "https://gutenberg.justamouse.com/texts/11/body")
+      .to_return(status: 200, body: body)
+
     user = create(:user)
     book_1 = create(:book, guten_id: 11)
     book_2 = create(:book, guten_id: 345)
