@@ -1,7 +1,9 @@
-require 'rails_helper'
+require 'mock_helper'
 
 describe 'GET /api/v1/users/:id/books/:id' do
   it 'returns paginated gutenberg book' do
+    stub_alice_text
+
     user = create(:user)
     book_1 = create(:book, guten_id: 11)
     book_2 = create(:book, guten_id: 345)
