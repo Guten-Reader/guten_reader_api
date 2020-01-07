@@ -3,6 +3,18 @@
 
 ## Endpoints
 
+1. [GET access_token](https://github.com/Guten-Reader/guten_reader_api#get-access_token)
+
+2. [GET single user_books](https://github.com/Guten-Reader/guten_reader_api#get-single-user_books)
+
+3. [POST user_books](https://github.com/Guten-Reader/guten_reader_api#post-user_books)
+
+4. [GET user_books (all books)](https://github.com/Guten-Reader/guten_reader_api#get-user_books-all-books)
+
+5. [UPDATE user_books (by user_id, book_id)](https://github.com/Guten-Reader/guten_reader_api#update-user_books-by-user_id-book_id)
+
+6. [DELETE user_books (by user_id, book_id)](https://github.com/Guten-Reader/guten_reader_api#delete-user_books-by-user_id-book_id)
+
 ### GET access_token 
 
 `GET api/v1/access_token/:user_id`
@@ -226,6 +238,3 @@ status: 404
    "error": "Could not find record with user_id: {user_id}, book_id: {book_id} "
 }
 ```
-
-### GET user_book (by user_id, book_id)
-`GET api/v1/users/:user_id/books/:book_id`
