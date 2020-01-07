@@ -1,9 +1,17 @@
 require 'rails_helper'
 
+
 describe 'GET /api/v1/access_token/:id' do
+  before do
+    WebMock.allow_net_connect!
+  end
+
+  after do
+    WebMock.disable_net_connect!
+  end
   it 'returns new access_token for specific user' do
 
-    user_1 = create(:user, id: 1, refresh_token: ENV["SPOTIFY_REFRESH_TOKEN"])
+    user_1 = create(:user, id: 1, refresh_token: ENV['SPOTIFY_REFRESH_TOKEN'])
     user_2 = create(:user, id: 2, refresh_token: "12345")
 
     get "/api/v1/access_token/#{user_1.id}"
