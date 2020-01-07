@@ -7,9 +7,9 @@ before_action :find_user, only: [:show]
   end
 
  private
-  def cannot_find_user(params)
+  def cannot_find_user(id)
     render json: {
-      error: "Could not find record with user_id: #{params[:id]}"
+      error: "Could not find record with user_id: #{id}"
     }, status: 404
   end
 
