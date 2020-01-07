@@ -26,4 +26,4 @@
 /config/application.yml
 
 # Ignore testing coverage
-coverage/
+coverage
