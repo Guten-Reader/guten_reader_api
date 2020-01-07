@@ -21,10 +21,11 @@ describe 'GET /api/v1/access_token/:id' do
     data = JSON.parse(response.body, symbolize_names: true)
 
     expect(data).to have_key(:access_token)
+    expect(data[:access_token].length).to eq(163)
   end
 
   it 'returns 404 if user not found' do
-  skip
+
     get "/api/v1/access_token/1000"
 
     expect(response.status).to eq(404)
