@@ -3,7 +3,7 @@ FactoryBot.define do
     username { Faker::Name.name }
     email { Faker::Internet.email }
     password_digest { 'password' }
-    spotify_token { nil }
+    refresh_token { nil }
     role { 0 }
   end
 end

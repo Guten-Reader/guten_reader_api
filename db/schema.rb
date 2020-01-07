@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_12_18_223610) do
     t.string "username"
     t.string "email"
     t.string "password_digest"
-    t.string "spotify_token"
+    t.string "refresh_token"
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
