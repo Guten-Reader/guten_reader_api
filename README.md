@@ -3,6 +3,41 @@
 
 ## Endpoints
 
+### GET access_token 
+
+`GET /access_token/:user_id`
+
+[Example Request](https://guten-server.herokuapp.com/api/v1/access_token/1)
+
+**Description:** When a user's access_token expires, a GET request can be sent to `/access_token/:user_id`. The user's ID is included in the params. If the request is successful, a valid access_token is returned with the status code 200. If the request fails, an error message with the status code 404 is returned. **Please note, access_token expires hourly**
+
+**Request**
+```
+GET /api/v1/access_token/:user_id
+Content-Type: application/json
+Accept: application/json
+```
+
+**Successful Response**
+
+```
+status: 200
+
+{
+    "access_token": "BQBqxYOa2N0AILh2hu_sTtfhP_bwN3EPT4e2jCpAn69ytIeUqgSf1xzjIkLtfSFTts_o4irOlmMuLIeG_DS-4iiQZ-W6XlRilSiy3FaSrbzpbUaaDhSkvpCAkYmqwQoA9gJvdSbIRY0jkiL_ADIQaGPXw7p7HBKo_Ao"
+}
+```
+
+**Unsuccessful Response**
+```
+status: 404
+
+{
+    "error": "Could not find record with user_id: 123"
+}
+```
+
+
 ### GET single user_books
 
 `GET /users/:id/books/:id`
