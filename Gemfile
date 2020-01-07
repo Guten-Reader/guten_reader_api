@@ -46,6 +46,7 @@ group :development do
 end
 
 group :test do
+  gem 'codecov'
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'shoulda-matchers'

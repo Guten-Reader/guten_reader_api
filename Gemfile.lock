@@ -50,6 +50,10 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.0.1)
+    codecov (0.1.16)
+      json
+      simplecov
+      url
     coderay (1.1.2)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
@@ -179,6 +183,7 @@ GEM
     thread_safe (0.3.6)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
+    url (0.3.2)
     webmock (3.7.6)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -194,6 +199,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   byebug
+  codecov
   factory_bot_rails
   faker
   faraday
