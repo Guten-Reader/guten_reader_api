@@ -5,7 +5,7 @@
 
 ### GET access_token 
 
-`GET /access_token/:user_id`
+`GET api/v1/access_token/:user_id`
 
 [Example Request](https://guten-server.herokuapp.com/api/v1/access_token/1)
 
@@ -40,7 +40,7 @@ status: 404
 
 ### GET single user_books
 
-`GET /users/:id/books/:id`
+`GET api/v1/users/:id/books/:id`
 
 **Description:** A user clicks on one of their checked-out book. A GET request is sent to `/users/:id/books/:id`. The user ID and book ID is included in the URL. The book ID is the ID of the book from the books table, not the Gutenberg ID. If the request is successful, you will receive a JSON response with the user's current_page and the paginated text from the request book. The paginated text is returned in an array, with each index of the array as one book page. You will also receive a 200 status code. If the request is not successful, you will receive the status code 404.
 
@@ -85,7 +85,7 @@ status: 404
 
 ### POST user_books
 
-`POST /users/:id/books`
+`POST api/v1/users/:id/books`
 
 **Description:** A user clicks button from search page which sends a POST request to the endpoint `/api/v1/users/:id/books`. You must include the book's `author`, `title`, and `guten_id` in the body. A `img_url` is optional in the body of the request.  If the POST request is successful, you will see a JSON response with the user_id and book_id and receive a 201 status code. If the POST request is unsuccessful, you will receive a 400 status code.
 
@@ -123,7 +123,7 @@ status: 400
 
 ### GET user_books (all books)
 
-`GET /users/:id/books/`
+`GET api/v1/users/:id/books/`
 
 **Description:** A user visits their 'library page'. This endpoint will retrieve a list
 of all their books. It will return an empty array if they have no books. It will return
@@ -163,7 +163,8 @@ status: 404
 ```
 
 ### UPDATE user_books (by user_id, book_id)
-`PATCH /users/:user_id/books/:book_id`
+`PATCH api/v1/users/:user_id/books/:book_id`
+
 **Description:** You make a PATCH request to the endpoint ``api/v1/users/:user_id/books/:book_id?current_page=[CURRENT_PAGE_NUMBER]``. You must include the current page in the query params of the URI with they key 'current_page'. If the PATCH request is successful, you will see a JSON response with the updated current_page and receive a 200 status code. If the PATCH does not have query param current_page, you will receive a 400 status code.  If the user_book is not found, you will receive a 404 status code.
 
 **Request**
@@ -203,7 +204,7 @@ status: 404
 ```
 
 ### DELETE user_books (by user_id, book_id)
-`DELETE /users/:user_id/books/:book_id`
+`DELETE api/v1/users/:user_id/books/:book_id`
 
 **Description:** Send a DELETE request to the endpoint `api/v1/users/:user_id/books/:book_id` to remove a book from a users library. If the DELETE request is successful, you will see a No Content response, 204 status code. If the DELETE request is unsuccessful, I will receive a 404 status code.
 
@@ -227,4 +228,4 @@ status: 404
 ```
 
 ### GET user_book (by user_id, book_id)
-`GET /users/:user_id/books/:book_id`
+`GET api/v1/users/:user_id/books/:book_id`
