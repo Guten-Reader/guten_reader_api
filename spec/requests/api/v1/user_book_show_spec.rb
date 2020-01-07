@@ -1,4 +1,5 @@
 require 'mock_helper'
+require 'webmock/rspec'
 
 describe 'GET /api/v1/users/:id/books/:id' do
   it 'returns paginated gutenberg book' do
