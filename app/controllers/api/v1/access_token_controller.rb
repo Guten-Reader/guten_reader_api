@@ -1,12 +1,13 @@
 class Api::V1::AccessTokenController < ApplicationController
-before_action :find_user, only: [:show]
+  before_action :find_user, only: [:show]
+
   def show
     return cannot_find_user(params[:id]) unless @user
-    access_token = SpotifyService.new.get_access_token(@user)
-    render json: {access_token: access_token }, status: 200
+    access_token = SpotifyService.get_access_token(@user)
+    render json: { access_token: access_token }, status: 200
   end
 
- private
+  private
   def cannot_find_user(id)
     render json: {
       error: "Could not find record with user_id: #{id}"
@@ -14,8 +15,7 @@ before_action :find_user, only: [:show]
   end
 
   def find_user
-    params = user_params
-    @user ||= User.find_by(id: user_params[:id])
+    @user ||= User.find_by(user_params)
   end
 
   def user_params
