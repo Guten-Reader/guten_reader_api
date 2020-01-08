@@ -1,3 +1,39 @@
+# GutenReader API
+![image](https://user-images.githubusercontent.com/18686466/72020934-1a54c600-322a-11ea-9e19-52c827510294.png)
+
+[GutenReader](https://github.com/Guten-Reader/guten_reader_FE) is an app built in React Native for reading books hosted by [Project Gutenberg](https://www.gutenberg.org/). This API handles the downloads and CRUD functionality for users' books.
+
+## Installation
+NOTE: You will need to register an app with [Spotify](https://developer.spotify.com/documentation/web-api/) and save the App API Key as the environment variable: SPOTIFY_APP_API_KEY
+
+1. Clone the repository
+```
+$ git clone git@github.com:Guten-Reader/guten_reader_api.git
+```
+
+2. Install dependencies
+```
+$ bundle install
+```
+
+3. Set up the database
+```
+$ createdb guten-reader-api_development
+$ createdb guten-reader-api_test
+$ rails db:{create,migrate,seed}
+$ rails db:{create, migrate} RAILS_ENV=test
+```
+
+4. Run the server
+```
+$ rails s
+```
+
+4. Run the tests
+```
+$ rspec
+```
+
 ## Base Url
 `https://guten-server.herokuapp.com/`
 
