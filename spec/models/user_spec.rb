@@ -36,12 +36,22 @@ describe User do
       scenario 'returns array of books associated with user' do
         user = create(:user)
         book1, book2, book3 = create(:book), create(:book), create(:book)
-        create(:user_book, user: user, book: book1)
-        create(:user_book, user: user, book: book3)
+        user_book1 = create(:user_book, user: user, book: book1, current_page: 25)
+        user_book2 = create(:user_book, user: user, book: book3, current_page: 10)
 
         books = user.all_books
-        expected = [book1, book3]
-        expect(books).to eq(expected)
+        
+        expect(books[0].id).to eq(book1.id)
+        expect(books[0].guten_id).to eq(book1.guten_id)
+        expect(books[0].author).to eq(book1.author)
+        expect(books[0].title).to eq(book1.title)
+        expect(books[0].current_page).to eq(user_book1.current_page)
+
+        expect(books[1].id).to eq(book3.id)
+        expect(books[1].guten_id).to eq(book3.guten_id)
+        expect(books[1].author).to eq(book3.author)
+        expect(books[1].title).to eq(book3.title)
+        expect(books[1].current_page).to eq(user_book2.current_page)
       end
     end
   end

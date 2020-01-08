@@ -153,15 +153,18 @@ status: 200
          { "id": 1,
             "guten_id": 123456,
             "title": "example title",
-            "author": "example author" },
+            "author": "example author",
+            "current_page": 0 },
           {  "id": 2,
             "guten_id": 789012,
             "title": "example title",
-            "author": "example author" },
+            "author": "example author",
+            "current_page": 24 },
           {  "id": 3,
             "guten_id": 345678,
             "title": "example title",
-            "author": "example author" }
+            "author": "example author",
+            "current_page": 42 }
           ]}
 ```
 

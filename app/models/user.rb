@@ -10,6 +10,8 @@ class User < ApplicationRecord
   enum role: [:user, :admin]
   
   def all_books
-    books.select(:id, :guten_id, :author, :title)
+     books.includes(:user_books)
+      .select(:id, :guten_id, :author, :title, :current_page)
+      .order(id: :asc)
   end
 end
