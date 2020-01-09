@@ -146,8 +146,7 @@ Accept: application/json
 {
   "guten_id": "123453",
   "title": "example title",
-  "author": "example author",
-  "img_url": **OPTIONAL***
+  "author": "example author"
 }
 
 ```
