@@ -13,6 +13,17 @@ describe User do
     it { should have_many(:books).through(:user_books) }
   end
 
+  describe 'default attributes' do
+    it 'has defaults for refresh_token, music_genre, dyslexic_font, dark_mode, font_size' do
+      user = create(:user)
+      expect(user.refresh_token).to be_nil
+      expect(user.music_genre).to eq('classical')
+      expect(user.dyslexic_font).to be false
+      expect(user.dark_mode).to be false
+      expect(user.font_size).to eq(20)
+    end
+  end
+
   describe 'roles' do
     scenario 'default role is 0, :user' do
       user = create(:user)
