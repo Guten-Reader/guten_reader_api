@@ -1,3 +1,42 @@
+# GutenReader API
+
+[![Build Status](https://travis-ci.com/Guten-Reader/guten_reader_api.svg?branch=master)](https://travis-ci.com/Guten-Reader/guten_reader_api)  
+
+![image](https://user-images.githubusercontent.com/18686466/72020934-1a54c600-322a-11ea-9e19-52c827510294.png)
+
+[GutenReader](https://github.com/Guten-Reader/guten_reader_FE) is an app built in React Native for reading books hosted by [Project Gutenberg](https://www.gutenberg.org/). This API handles the downloads and CRUD functionality for users' books. GutenReader also uses a [Flask microservice](https://github.com/Guten-Reader/guten_reader_BE) to handle sentiment analysis and song recommendation based on the mood of the current page.
+
+## Installation
+NOTE: You will need to register an app with [Spotify](https://developer.spotify.com/documentation/web-api/) and save the App API Key as the environment variable: SPOTIFY_APP_API_KEY
+
+1. Clone the repository
+```
+$ git clone git@github.com:Guten-Reader/guten_reader_api.git
+```
+
+2. Install dependencies
+```
+$ bundle install
+```
+
+3. Set up the database
+```
+$ createdb guten-reader-api_development
+$ createdb guten-reader-api_test
+$ rails db:{create,migrate,seed}
+$ rails db:{create, migrate} RAILS_ENV=test
+```
+
+4. Run the server
+```
+$ rails s
+```
+
+4. Run the tests
+```
+$ rspec
+```
+
 ## Base Url
 `https://guten-server.herokuapp.com/`
 
@@ -110,8 +149,7 @@ Accept: application/json
 {
   "guten_id": "123453",
   "title": "example title",
-  "author": "example author",
-  "img_url": **OPTIONAL***
+  "author": "example author"
 }
 
 ```
@@ -241,3 +279,11 @@ status: 404
    "error": "Could not find record with user_id: {user_id}, book_id: {book_id} "
 }
 ```
+
+## Contributors
+- **Mack Halliday**
+    - [GitHub](https://github.com/MackHalliday)
+    - [LinkedIn](https://www.linkedin.com/in/mackhalliday/)
+- **Fenton Taylor**
+    - [GitHub](https://github.com/fentontaylor)
+    - [LinkedIn](https://www.linkedin.com/in/fenton-taylor-006057122/)
