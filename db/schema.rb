@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_18_223610) do
+ActiveRecord::Schema.define(version: 2020_01_25_202441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,10 @@ ActiveRecord::Schema.define(version: 2019_12_18_223610) do
     t.integer "role", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "music_genre", default: "classical"
+    t.boolean "dyslexic_font", default: false
+    t.boolean "dark_mode", default: false
+    t.integer "font_size", default: 20
   end
 
   add_foreign_key "user_books", "books"
