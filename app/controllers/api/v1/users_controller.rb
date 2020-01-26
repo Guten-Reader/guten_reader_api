@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :find_user, only: [:update]
+  before_action :find_user, only: [:show, :update]
 
   def update
     unless missing_params.empty?
@@ -9,6 +9,14 @@ class Api::V1::UsersController < ApplicationController
     if @user
       @user.update_settings(params)
       render status: 204
+    else
+      return error_cannot_find_user
+    end
+  end
+
+  def show
+    if @user
+      render json: UserSettingSerializer.new(@user), status: 200
     else
       return error_cannot_find_user
     end
