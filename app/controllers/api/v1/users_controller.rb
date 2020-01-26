@@ -16,9 +16,10 @@ class Api::V1::UsersController < ApplicationController
 
  private
 
-  def error_missing_params(missing)
+  def error_missing_params(params_missing)
      render json: {
-       error: "The following body params are missing: #{missing}"
+       error: "The following body params " \
+              "are missing: #{params_missing}"
        }, status: 400
   end
 
