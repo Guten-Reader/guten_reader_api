@@ -51,7 +51,7 @@ describe 'PATCH /api/v1/users/:user_id' do
     expect(data).to eq({ "error": "The following body params are missing: dark_mode and font_size" })
   end
 
-  it 'returns 404 if user_book not found' do
+  it 'returns 404 if user not found' do
     user = create(:user)
 
     request_body = {
