@@ -54,6 +54,10 @@ $ rspec
 
 6. [DELETE user_books (by user_id, book_id)](https://github.com/Guten-Reader/guten_reader_api#delete-user_books-by-user_id-book_id)
 
+7. [PATCH user (by user_id)](https://github.com/Guten-Reader/guten_reader_api#patch-user-by-user_id)
+
+8. [GET user (by user_id)](https://github.com/Guten-Reader/guten_reader_api#get-user-by-user_id)
+
 ### GET access_token 
 
 `GET api/v1/access_token/:user_id`
@@ -277,6 +281,78 @@ status: 404
 
 {
    "error": "Could not find record with user_id: {user_id}, book_id: {book_id} "
+}
+```
+
+### PATCH user (by user_id)
+`PATCH api/v1/users/:user_id`
+
+**Description:** Send a PATCH request to the endpoint `api/v1/users/:user_id` with the updated user settings in the request body. If the PATCH request is successful, you will see a No Content response, 204 status code. If the PATCH request is unsuccessful, I will receive a 404 status code if user is not found or 400 status code if params are missing from the body.
+
+**Request**
+
+`
+PATCH api/v1/users/:user_id
+ 
+{ 
+  "music_genre": "piano", 
+  "dyslexic_font":  true, 
+  "dark_mode": true, 
+  "font_size": 20
+}
+`
+**Successful Response**
+
+```
+status: 204
+```
+
+**Unsuccessful Responses**
+```
+status: 404
+
+{ 
+   "error": "Could not find user with user_id: {user_id}"
+}
+```
+
+```
+status: 400
+
+{ 
+   "error": "Missing required body parameters: dark_mode and font_size"
+}
+```
+
+### GET user (by user_id)
+`GET api/v1/users/:user_id`
+
+**Description:** Send a GET request to the endpoint `api/v1/users/:user_id` . If the GET request is successful, you receive a JSON response with the user's preferred setting and the status code 200. If the GET request is unsuccessful, I will receive a 404 status code if user is not found.
+
+
+``` 
+GET api/v1/users/:user_id
+```
+
+**Successful Response**
+```
+status: 200 
+
+{ 
+  "music_genre": "classical", 
+  "dyslexic_font":  false, 
+  "dark_mode": true, 
+  "font_size": 10
+}
+
+```
+
+**Unsuccessful Responses**
+```
+status: 404
+
+{ 
+   "error": "Could not find user with user_id: {user_id}"
 }
 ```
 
