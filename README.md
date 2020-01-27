@@ -289,6 +289,17 @@ status: 404
 
 **Description:** Send a PATCH request to the endpoint `api/v1/users/:user_id` with the updated user settings in the request body. If the PATCH request is successful, you will see a No Content response, 204 status code. If the PATCH request is unsuccessful, I will receive a 404 status code if user is not found or 400 status code if params are missing from the body.
 
+
+**Body Parms Options**
+
+| Param    | Options  | 
+| ------------- |:-------------:|
+| music_genre     | "classical", "piano", "electronic" |
+| dyslexic_font     | true or false   |
+| dark_mode      | true or false     |
+| font_size       | 10, 20, or 48  |
+
+
 **Request**
 
 ``` 
@@ -296,7 +307,7 @@ PATCH api/v1/users/:user_id
  
 { 
   "music_genre": "piano", 
-  "dyslexic_font":  true, 
+  "dyslexic_font": true, 
   "dark_mode": true, 
   "font_size": 20
 }
