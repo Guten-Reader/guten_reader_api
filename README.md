@@ -291,7 +291,7 @@ status: 404
 
 **Request**
 
-`
+``` 
 PATCH api/v1/users/:user_id
  
 { 
@@ -300,8 +300,7 @@ PATCH api/v1/users/:user_id
   "dark_mode": true, 
   "font_size": 20
 }
-
-`
+```
 
 **Successful Response**
 
